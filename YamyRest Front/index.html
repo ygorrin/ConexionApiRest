@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yamila Conexión Api Rest</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <h1><hr><br>
+        Gestión de Productos</h1> <br>
+    
+    <div class="form-group">
+        <h3>Agregar</h3>
+            <form id="add" action="" method="post">
+                <input type="text" name="nombre" placeholder="Nombre">
+                <input type="number" name="precio" placeholder="Precio">
+                <input type="text" name="tipo" placeholder="Tipo de Producto">
+                <input type="button" id="agregar" value="Agregar">
+            </form>
+    </div>
+
+    <div class="form-group">
+        <h3>Eliminar</h3>
+        <form id="delete" action="" method="post">
+            <input type="number" name="id" placeholder="Id">
+            <input type="button" id="eliminar" value="Eliminar">
+        </form>
+    </div>
+
+    <div class="form-group">
+    <h3>Modificar</h3>
+    <form id="update" action="" method="post">
+        <input type="number" name="id" placeholder="Id">
+        <input type="text" name="nombre" placeholder="Nombre">
+        <input type="number" name="precio" placeholder="Precio">
+        <input type="text" name="tipo" placeholder="Tipo de Producto">
+        <input type="button" id="modificar" value="Modificar">
+    </form>
+
+    </div>
+
+<SCRIPT>
+    $.getJSON('http://localhost:8080/producto', function(data) {
+        var productos = data;
+        $("<h3/>", { 
+                html: '------------Productos Registrados------------'
+            }).appendTo("body");
+        $.each (productos, function (index, pro) {
+            $("<p/>", { 
+                html: 'Id Producto:  ' + pro.id +'; Nombre:  ' + pro.nombre + '; Precio: $ ' + pro.precio + '; Tipo: ' + pro.tipo
+            }).appendTo("body");
+        });
+        
+        }).fail(function() {
+            console.log('Error al consumir la API!');
+        });
+    
+        $(document).ready(function(){
+            $("#agregar").click(function(){
+                $.ajax({
+                    url: 'http://localhost:8080/producto',
+                    type: "POST",
+                    dataType:"json",
+                    data: $("#add").serialize(),
+                    success: function (respuesta){
+                        console.log(respuesta); 
+                    },
+                    error: function(xhr,ts,e){
+                        console.log(xhr,ts,e);
+                        
+                    }
+                });
+                
+            });
+        
+            $("#eliminar").click(function(){
+                $.ajax({
+                    url: 'http://localhost:8080/producto',
+                    type: "DELETE",
+                    dataType:"json",
+                    data: $("#delete").serialize(),
+                    success: function (respuesta){
+                        console.log(respuesta); 
+                    },
+                    error: function(xhr,ts,e){
+                        console.log(xhr,ts,e);
+                        
+                    }
+                });
+            });
+
+            $("#modificar").click(function(){
+                $.ajax({
+                    url: 'http://localhost:8080/producto',
+                    type: "PUT",
+                    dataType:"json",
+                    data: $("#update").serialize(),
+                    success: function (respuesta){
+                        console.log(respuesta); 
+                    },
+                    error: function(xhr,ts,e){
+                        console.log(xhr,ts,e);
+                        
+                    }
+                });
+            });
+    });
+</SCRIPT>
+
+<hr>
+<br>
+<h1>Gestión de Servicios</h1> <hr>
+    
+    <div class="form-group">
+        <h3>Agregar Servicio</h3>
+            <form id="addServ" action="" method="post">
+                <input type="text" name="nombreServicio" placeholder="Nombre de Servicio">
+                <input type="number" name="precioServicio" placeholder="Precio de Servicio">
+                <input type="button" id="agregarServicio" value="Agregar Servicio">
+            </form>
+    </div>
+
+    <div class="form-group">
+        <h3>Eliminar Servicio</h3>
+        <form id="deleteServ" action="" method="post">
+            <input type="number" name="idServicio" placeholder="Id Servicio">
+            <input type="button" id="eliminarServicio" value="Eliminar Servicio">
+        </form>
+    </div>
+
+    <div class="form-group">
+    <h3>Modificar</h3>
+    <form id="updateServ" action="" method="post">
+        <input type="number" name="idServicio" placeholder="Id Servicio">
+        <input type="text" name="nombreServicio" placeholder="Nombre de Servicio">
+                <input type="number" name="precioServicio" placeholder="Precio de Servicio">
+        <input type="button" id="modificarServicio" value="Modificar Servicio">
+    </form>
+    <hr>
+    </div>
+
+
+
+
+<SCRIPT>
+    $.getJSON('http://localhost:8080/servicio', function(data) {
+        var servicios = data;
+        $("<h3/>", { 
+                html: '------------Servicios Registrados------------'
+            }).appendTo("body");
+        $.each (servicios, function (index, serv) {
+            $("<p/>", { 
+                html: 'Id Servicio:  ' + serv.idServicio +'; Nombre:  ' + serv.nombreServicio + '; Precio: $ ' + serv.precioServicio + ' '
+            }).appendTo("body");
+        });
+        
+        }).fail(function() {
+            console.log('Error al consumir la API!');
+        });
+    
+        $(document).ready(function(){
+            $("#agregarServicio").click(function(){
+                $.ajax({
+                    url: 'http://localhost:8080/servicio',
+                    type: "POST",
+                    dataType:"json",
+                    data: $("#addServ").serialize(),
+                    success: function (respuesta){
+                        console.log(respuesta); 
+                    },
+                    error: function(xhr,ts,e){
+                        console.log(xhr,ts,e);
+                        
+                    }
+                });
+                
+            });
+        
+            $("#eliminarServicio").click(function(){
+                $.ajax({
+                    url: 'http://localhost:8080/servicio',
+                    type: "DELETE",
+                    dataType:"json",
+                    data: $("#deleteServ").serialize(),
+                    success: function (respuesta){
+                        console.log(respuesta); 
+                    },
+                    error: function(xhr,ts,e){
+                        console.log(xhr,ts,e);
+                        
+                    }
+                });
+            });
+
+            $("#modificarServicio").click(function(){
+                $.ajax({
+                    url: 'http://localhost:8080/servicio',
+                    type: "PUT",
+                    dataType:"json",
+                    data: $("#updateServ").serialize(),
+                    success: function (respuesta){
+                        console.log(respuesta); 
+                    },
+                    error: function(xhr,ts,e){
+                        console.log(xhr,ts,e);
+                        
+                    }
+                });
+            });
+    });
+</SCRIPT>
+
+
+</body>
+</html>
