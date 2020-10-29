@@ -11,7 +11,7 @@ Alcance 📦
 
 Instrucciones de Ejecución 🔧
 1.	Abrir el proyecto YamyRest en Eclipse (Open Proyect from file system)
-2.  Conectar a la base de datos en al Application Proprieties
+2.  Conectar a la base de datos en el Application Proprieties
 3.	Ejecutar Run As SpringBoot APP (BackEnd). Debe aparecer en la consola de Eclipse, el siguiente mensaje “Started YamyRestApplication”
 4.	Dejar el proyecto abierto, para que mantenga la conexión al servidor.
 5.	Abrir el archivo index.html que está dentro de la carpeta YamyRest Front
